@@ -18,9 +18,32 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'phone',
+        'candidate_status',
+        'bank_name',
+        'bank_branch',
+        'bank_account_name',
+        'bank_account_number',
+        'ktp',
+        'npwp',
+        'foto_close_up',
+        'is_admin',
+        'is_farmer',
+        'is_driver',
+        'is_pic_fabric',
+        'girik',
+        'farmer_address',
+        'farmer_garden_address',
+        'sim_b1',
+        'stnk',
+        'driver_address',
+        'pic_fabric_address',
+        'siup',
+        'npwp_fabric',
     ];
 
     /**
