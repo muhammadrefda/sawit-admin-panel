@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Candidate\CandidateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', '/candidates/form');
+
+Route::controller(CandidateController::class)->group(function () {
+    Route::prefix('candidates')->group(function () {
+        Route::get('/form', 'index')->name('candidates.index');
+    });
 });
 
-Route::get('/form', function () {
-    return view('forms.index');
-});
