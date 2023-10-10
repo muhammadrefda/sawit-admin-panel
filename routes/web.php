@@ -17,8 +17,8 @@ use App\Http\Controllers\Candidate\CandidateController;
 Route::redirect('/', '/candidates/form');
 
 Route::controller(CandidateController::class)->group(function () {
-    Route::prefix('candidates')->group(function () {
-        Route::get('/form', 'index')->name('candidates.index');
-    });
+    Route::get('candidates/form', 'index')->name('candidates.index');
+    Route::post('candidates/form', 'store')->name('candidates.store');
 });
+
 
