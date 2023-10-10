@@ -9,40 +9,66 @@
 <body>
 <div class="flex justify-center items-center mt-4">
     <div class="block max-w-fit p-5 bg-white border border-gray-200 rounded-lg shadow">
-        <form>
+        <form action="{{ route('candidates.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
                     <label for="nama_depan" class="block mb-2 text-sm font-medium text-gray-900">Nama Depan</label>
-                    <input type="text" id="nama_depan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                    <input type="text" id="nama_depan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
+                    rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="first_name" value="{{old('first_name')}}"
+                    >
+                    @error('first_name')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div>
                     <label for="nama_belakang" class="block mb-2 text-sm font-medium text-gray-900">Nama Belakang</label>
                     <input type="text" id="nama_belakang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="last_name">
+                    @error('last_name')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div>
                     <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Nomor HP</label>
                     <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
             focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" autocomplete="on" required>
+                           pattern="[0-9]{12}" maxlength="12" autocomplete="on" name="phone">
+                    @error('phone')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
                     <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
-            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" autocomplete="on" required>
+            focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('email') is-invalid @enderror"
+                           autocomplete="on" name="email">
+                    @error('email')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
                     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="•••••••••" required>
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('password') is-invalid @enderror"
+                           placeholder="•••••••••"
+                           name="password" >
+                    @error('password')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div>
                     <label for="confirm_password" class="block mb-2 text-sm font-medium text-gray-900">
                         Confirm password</label>
-                    <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="•••••••••" required>
+                    <input type="password" id="confirm_password" class="bg-gray-50 border border-gray-300 text-gray-900
+                     text-sm
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 @error('password_confirmation') is-invalid @enderror"
+                           placeholder="•••••••••"
+                           name="password_confirmation" >
+                    @error('password_confirmation')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
@@ -51,8 +77,11 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                         type="text"
-                        name="autocomplete"
+                        name="bank_name"
                         list="nama_bank"/>
+                    @error('bank_name')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                         <datalist id="nama_bank">
                             <option value="BANK BRI">BANK BRI</option>
                             <option value="BANK EKSPOR INDONESIA">BANK EKSPOR INDONESIA</option>
@@ -193,44 +222,66 @@
                             <option value="BPR KS (KARYAJATNIKA SEDAYA)">BPR KS (KARYAJATNIKA SEDAYA)</option>
                             <option value="LINKAJA">LINKAJA</option>
                         </datalist>
-
                 </div>
 
                 <div>
                     <label for="cabang_bank" class="block mb-2 text-sm font-medium text-gray-900">Cabang Bank</label>
                     <input type="text" id="cabang_bank" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                           name="bank_branch">
+                    @error('bank_branch')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
                     <label for="nama_rekening" class="block mb-2 text-sm font-medium text-gray-900">Nama Rekening</label>
                     <input type="text" id="nama_rekening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                           name="bank_account_name">
+                    @error('bank_account_name')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
                     <label for="nomor_rekening" class="block mb-2 text-sm font-medium text-gray-900">Nomor Rekening</label>
                     <input type="text" id="nomor_rekening" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
-            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+            rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                           name="bank_account_number">
+                    @error('bank_account_number')
+                    <div class="text-sm text-red-600">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
                     <label for="ktp" class="block mb-2 text-sm font-medium text-gray-900">KTP</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="ktp" type="file">
+            focus:border-blue-500 block w-full p-2.5" id="ktp" type="file" name="ktp">
+
                     <p class="mt-1 text-sm text-gray-500" id="ktp">JPG atau JPEG Maksimal 5 mb</p>
+                    @error('ktp')
+                    <div class="text-sm text-red-600">{{$message}}</div>
+                    @enderror
                 </div>
                 <div>
                     <label for="npwp" class="block mb-2 text-sm font-medium text-gray-900">NPWP</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="npwp" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="npwp" type="file"
+                           name="npwp">
                     <p class="mt-1 text-sm text-gray-500" id="npwp">JPG atau JPEG Maksimal 5 mb</p>
+                    @error('npwp')
+                    <div class="text-sm text-red-600">{{$message}}</div>
+                    @enderror
                 </div>
                 <div>
                     <label for="foto_close_up" class="block mb-2 text-sm font-medium text-gray-900">Foto Close Up</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="foto_close_up" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="foto_close_up" type="file" name="foto_close_up">
                     <p class="mt-1 text-sm text-gray-500" id="foto_close_up">JPG atau JPEG Maksimal 5 mb</p>
+                    @error('foto_close_up')
+                    <div class="text-sm text-red-600">{{$message}}</div>
+                    @enderror
                 </div>
             </div>
 
@@ -242,19 +293,19 @@
 
             <div class="flex justify-around">
                 <div class="flex items-center mr-4">
-                    <input id="petani-radio" type="radio" name="role" value="petani" class="w-4 h-4 text-blue-600 bg-gray-100
+                    <input id="petani-radio" type="radio" name="is_farmer" value="1" class="w-4 h-4 text-blue-600 bg-gray-100
             border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
             dark:bg-gray-700 dark:border-gray-600">
                     <label for="petani-radio" class="ml-2 text-sm font-medium text-gray-900">Petani</label>
                 </div>
                 <div class="flex items-center mr-4">
-                    <input id="driver-radio" type="radio" name="role" value="driver" class="w-4 h-4 text-blue-600 bg-gray-100
+                    <input id="driver-radio" type="radio" name="is_driver" value="1" class="w-4 h-4 text-blue-600 bg-gray-100
             border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
             dark:bg-gray-700 dark:border-gray-600">
                     <label for="driver-radio" class="ml-2 text-sm font-medium text-gray-900">Driver</label>
                 </div>
                 <div class="flex items-center mr-4">
-                    <input id="pic-pabrik-radio" type="radio" name="role" value="pic-pabrik" class="w-4 h-4 text-blue-600 bg-gray-100
+                    <input id="pic-pabrik-radio" type="radio" name="is_pic_fabric" value="1" class="w-4 h-4 text-blue-600 bg-gray-100
             border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2
             dark:bg-gray-700 dark:border-gray-600">
                     <label for="pic-pabrik-radio" class="ml-2 text-sm font-medium text-gray-900">PIC Pabrik</label>
@@ -267,7 +318,7 @@
                 <div>
                     <label for="girik" class="block mb-2 text-sm font-medium text-gray-900">GIRIK</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="girik" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="girik" type="file" name="girik">
                     <p class="mt-1 text-sm text-gray-500" id="girik">JPG atau JPEG Maksimal 5 mb</p>
                 </div>
                 <div>
@@ -279,7 +330,7 @@
                     <div>
                         <label for="alamat_lengkap_petani" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap</label>
                         <textarea id="alamat_lengkap_petani" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50
-            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="farmer_address"></textarea>
                     </div>
 
                 </div>
@@ -293,7 +344,7 @@
                     <div>
                         <label for="alamat_kebun_petani" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap</label>
                         <textarea id="alamat_kebun_petani" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50
-            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="farmer_garden_address"></textarea>
                     </div>
 
                 </div>
@@ -306,13 +357,13 @@
                 <div>
                     <label for="sim_b1" class="block mb-2 text-sm font-medium text-gray-900">SIM B1</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="sim_b1" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="sim_b1" type="file" name="sim_b1">
                     <p class="mt-1 text-sm text-gray-500" id="sim_b1">JPG atau JPEG Maksimal 5 mb</p>
                 </div>
                 <div>
                     <label for="stnk_driver" class="block mb-2 text-sm font-medium text-gray-900">STNK</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="stnk_driver" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="stnk_driver" type="file" name="stnk">
                     <p class="mt-1 text-sm text-gray-500" id="stnk_driver">JPG atau JPEG Maksimal 5 mb</p>
                 </div>
                 <div>
@@ -324,7 +375,7 @@
                     <div>
                         <label for="alamat_lengkap_driver" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap</label>
                         <textarea id="alamat_lengkap_driver" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50
-            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="driver_address"></textarea>
                     </div>
 
                 </div>
@@ -336,13 +387,13 @@
                 <div>
                     <label for="siup" class="block mb-2 text-sm font-medium text-gray-900">SIUP</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="siup" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="siup" type="file" name="siup">
                     <p class="mt-1 text-sm text-gray-500" id="siup">JPG atau JPEG Maksimal 5 mb</p>
                 </div>
                 <div>
                     <label for="npwp_pabrik" class="block mb-2 text-sm font-medium text-gray-900">NPWP Pabrik</label>
                     <input class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
-            focus:border-blue-500 block w-full p-2.5"  id="npwp_pabrik" type="file">
+            focus:border-blue-500 block w-full p-2.5"  id="npwp_pabrik" type="file" name="npwp_fabric">
                     <p class="mt-1 text-sm text-gray-500" id="npwp_pabrik">JPG atau JPEG Maksimal 5 mb</p>
                 </div>
                 <div>
@@ -354,7 +405,7 @@
                     <div>
                         <label for="alamat_lengkap_pabrik" class="block mb-2 text-sm font-medium text-gray-900">Alamat Lengkap</label>
                         <textarea id="alamat_lengkap_pabrik" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50
-            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
+            rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" name="pic_fabric_address"></textarea>
                     </div>
 
                 </div>
@@ -366,6 +417,7 @@
     focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mt-4 text-center justify-self-center
     col-span-full">Submit</button>
             </div>
+
 
         </form>
     </div>
